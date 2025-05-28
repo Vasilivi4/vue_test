@@ -26,7 +26,7 @@
 
     <!-- Характеристики -->
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-6 text-sm text-gray-700">
-      <div>Кімнат: {{ apartment.number_of_rooms }}</div>
+      <div>Кімнат: {{ apartment.rooms }}</div>
       <div>Площа: {{ apartment.square }} м²</div>
       <div>Тип: {{ apartment.property_type }}</div>
       <div>Доступність: {{ apartment.is_active ? 'Так' : 'Ні' }}</div>
@@ -36,20 +36,22 @@
     <!-- Опис -->
     <div class="mt-6">
       <h2 class="text-xl font-semibold mb-2">Опис</h2>
-      <p>{{ apartment.description }}</p>
+      <p>{{ apartment.descriptions }}</p>
     </div>
 
     <!-- Рієлтор -->
-    <div class="mt-10 border-t pt-6 flex items-center gap-4">
-      <img :src="realtor.image" class="w-20 h-20 object-cover rounded-full border" />
-      <div>
-        <p class="font-bold">{{ realtor.name }}</p>
-        <p class="text-sm text-gray-500">{{ realtor.agency }}</p>
-        <!-- бейджі -->
-        <div class="flex gap-2 mt-2">
-          <span class="badge bg-green-200">✅ Верифікований</span>
-          <span class="badge bg-yellow-200">PRO</span>
-          <span class="badge bg-gray-200">9 років</span>
+    <div>
+      <div class="mt-10 border-t pt-6 flex flex-nowrap items-center gap-4">
+        <img :src="realter.image" class="w-20 h-20 object-cover rounded-full border" />
+        <div class="flex-1">
+          <p class="flex-nowrap">{{ realter }}</p>
+          <p class="text-sm text-gray-500">{{ realter.agency }}</p>
+          <!-- бейджі -->
+          <div class="flex gap-2 mt-2">
+            <span class="badge bg-green-200">✅ Верифікований</span>
+            <span class="badge bg-yellow-200">PRO</span>
+            <span class="badge bg-gray-200">9 років</span>
+          </div>
         </div>
       </div>
     </div>
@@ -63,14 +65,11 @@ import { getApartmentById } from '../services/apartmentService'
 
 const route = useRoute()
 const apartment = ref({})
-const realtor = ref({
-  name: 'Пархомюк Олег',
-  agency: 'Княжий Дім',
-  image: 'src\assets\vue.svg', // тимчасово
-})
+const realter = ref({})
 
 onMounted(async () => {
   const res = await getApartmentById(route.params.id)
   apartment.value = res
+  realter.value = res.realter || {}
 })
 </script>
