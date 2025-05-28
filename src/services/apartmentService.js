@@ -1,6 +1,5 @@
 import { databases, ID } from "@/lib/appwrite";
 import { APPWRITE_DB, COLLECTION_ID } from "@/lib/config.js";
-import { Query } from "appwrite";
 
 // Отримати всі квартири
 export async function getApartments(filters = []) {
