@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue';
-import { register } from '@/services/auth.js';
+import { register } from '@/services/auth';
 import { useRouter } from 'vue-router';
 
 const email = ref('');
