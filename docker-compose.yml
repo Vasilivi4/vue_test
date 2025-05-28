@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  appwrite:
+    image: appwrite/appwrite:1.4.14
+    container_name: appwrite
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - _APP_ENV=production
+      - _APP_LOCALE=en
+      - _APP_OPENSSL_KEY_V1=your-random-secret-key
+      - _APP_DOMAIN=localhost
+      - _APP_DOMAIN_TARGET=localhost
+      - _APP_DB_HOST=db
+      - _APP_DB_USER=root
+      - _APP_DB_PASS=your-password
+      - _APP_DB_SCHEMA=appwrite
+    volumes:
+      - appwrite:/storage:rw
+      - /var/run/docker.sock:/var/run/docker.sock
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mariadb:10.5
+    container_name: db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your-password
+      MYSQL_DATABASE: appwrite
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  appwrite:
+  db_data:
