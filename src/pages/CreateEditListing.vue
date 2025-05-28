@@ -1,12 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 import { ID } from 'appwrite'
-import { databases } from '@/lib/appwrite.js' // путь может отличаться
+import { databases } from '@/lib/appwrite' // путь может отличаться
 
 const name = ref('')
 const price = ref(0)
 const rooms = ref(1)
 const square = ref(20)
+const descriptions = ref('')
+const realter = ref('')
 
 const handleSubmit = async () => {
   try {
@@ -18,7 +20,9 @@ const handleSubmit = async () => {
         name: name.value,
         price: Number(price.value),
         rooms: Number(rooms.value),
-        square: Number(square.value)
+        square: Number(square.value),
+        descriptions: descriptions.value,
+        realter: realter.value
       }
     )
     console.log('Created:', response)
@@ -50,6 +54,14 @@ const handleSubmit = async () => {
       <div>
         <label class="block font-semibold">Площа (м²)</label>
         <input type="number" v-model="square" class="border p-2 w-full" required />
+      </div>
+      <div>
+        <label class="block font-semibold">Опис</label>
+        <textarea v-model="descriptions" class="border p-2 w-full" rows="4" required></textarea>
+      </div>
+      <div>
+        <label class="block font-semibold">Рієлтор</label>
+        <input v-model="realter" class="border p-2 w-full" required />
       </div>
       <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
         Зберегти
