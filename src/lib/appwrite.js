@@ -3,6 +3,9 @@ import { APPWRITE_ENDPOINT, APPWRITE_PROJECT } from "./config.js";
 
 export const client = new Client();
 
+console.log('Appwrite Project:', APPWRITE_PROJECT);
+
+
 client.setEndpoint(APPWRITE_ENDPOINT).setProject(APPWRITE_PROJECT);
 
 export const account = new Account(client);
